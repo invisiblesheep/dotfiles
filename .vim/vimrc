@@ -1,0 +1,110 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'puremourning/vimspector'
+Plug 'tpope/vim-fugitive'
+Plug 'zxqfl/tabnine-vim'
+Plug 'arcticicestudio/nord-vim'
+Plug 'tpope/vim-commentary'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'w0rp/ale'
+Plug 'junegunn/fzf.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'LaTeX-Box-Team/LaTeX-Box'
+Plug 'mhinz/vim-signify'
+
+call plug#end()            " required
+filetype plugin indent on    " required
+
+let mapleader = ","
+set timeoutlen=1000 ttimeoutlen=0
+nmap ; :Buffers<CR>
+nmap <Leader>t :Files<CR>
+nmap <Leader>y :Ag<CR>
+nmap <Leader>r :Tags<CR>
+nmap <Leader>w :w<CR>
+nmap <Leader>q :q<CR>
+nmap <Leader>s :%s/
+nmap <silent> <space> :set relativenumber!<cr>
+" CoC stuff
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gD <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" NERDTree
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
+
+
+" Don't show filenames in query results
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
+
+colorscheme nord
+syntax enable
+
+set nu rnu
+set smartindent
+set expandtab
+set shiftwidth=2
+set softtabstop=2
+set path+=**/*
+set hidden
+set ignorecase smartcase
+set cursorline
+
+set clipboard=unnamed
+set incsearch
+set hlsearch
+" set shortmess+=|
+set shortmess=|
+
+" Ale configs
+" let g:ale_linters = {
+" \   'javascript': ['eslint'],
+" \}
+" let g:ale_sign_column_always = 1
+" let g:ale_fixers = {}
+" let g:ale_fixers.javascript = [
+" \ 'prettier',
+" \ 'eslint',
+" \]
+" let g:ale_fix_on_save = 1
+
+" Ale configs
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'python': ['flake8', 'pylint'],
+\   'latex': ['lacheck']
+\}
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\  'javascript' : ['prettier', 'eslint'],
+\  'python': ['yapf'],
+\   'css': ['prettier'],
+\}
+let g:ale_fix_on_save = 1
+" let g:ale_sign_column_always = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
+
+" CoC stuff
+let b:coc_suggest_disable = 1
+
+" Protect changes between writes. Default values of
+" updatecount (200 keystrokes) and updatetime
+" (4 seconds) are fine
+set swapfile
+set directory^=~/.vim/swap//
+
+"FZF
+set rtp+=/usr/local/opt/fzf
+
+"Latex stuff
+let g:tex_flavor = "latex"

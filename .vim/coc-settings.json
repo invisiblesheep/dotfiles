@@ -1,0 +1,22 @@
+{
+  "typescript.implementationsCodeLens.enable": false,
+  "typescript.referencesCodeLens.enable": false,
+  "typescript.suggestionActions.enabled": false,
+  "typescript.showUnused": false,
+  "typescript.suggest.enabled": false,
+  "javascript.validate.enable": false,
+  "javascript.suggest.enabled": false,
+  "javascript.showUnused": false,
+  "javascript.suggest.autoTrigger": "none",
+  "javascript.implementationsCodeLens.enable": false,
+  "javascript.referencesCodeLens.enable": false,
+  "javascript.suggestionActions.enabled": false,
+  "validate.enable": false,
+  "suggest.enabled": false,
+  "showUnused": false,
+  "suggest.autoTrigger": "none",
+  "diagnostic.enable": false,
+  "signature.enable": false
+
+
+}
