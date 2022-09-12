@@ -5,7 +5,7 @@ call plug#begin('~/.vim/plugged')
 
 " Plug 'puremourning/vimspector'
 Plug 'tpope/vim-fugitive'
-Plug 'codota/tabnine-vim'
+" Plug 'codota/tabnine-vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'tpope/vim-commentary'
 Plug 'scrooloose/nerdtree'
@@ -14,6 +14,7 @@ Plug 'tpope/vim-repeat'
 Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
+Plug 'github/copilot.vim'
 " Plug 'jupyter-vim/jupyter-vim'
 
 " Plug 'LaTeX-Box-Team/LaTeX-Box'
@@ -83,16 +84,16 @@ set shortmess=|
 " Ale configs
 let g:ale_linters = {
 \   'javascript': ['eslint'],
-\   'typescript': ['eslint'],
+\   'typescript': ['eslint', 'tsserver'],
 \   'typescriptreact': ['eslint'],
 \   'python': ['pyls'],
 \   'latex': ['lacheck']
 \}
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\  'javascript' : ['prettier'],
-\  'typescript' : ['prettier', 'eslint'],
-\  'typescriptreact' : ['prettier', 'eslint'],
+\  'javascript' : ['eslint'],
+\  'typescript' : ['eslint'],
+\  'typescriptreact' : ['eslint'],
 \  'python': ['black', 'isort'],
 \   'css': ['prettier'],
 \}
@@ -101,6 +102,8 @@ let g:ale_completion_autoimport = 1
 " let g:ale_sign_column_always = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
+let g:ale_typescript_prettier_use_local_config = 1
+let g:ale_linters_explicit = 1
 " let g:ale_typescript_prettier_options = '--single-quote --trailing-comma es5'
 " let g:ale_typescriptreact_prettier_options = '--single-quote --trailing-comma es5'
 
