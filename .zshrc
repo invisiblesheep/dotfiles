@@ -2,17 +2,14 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/tuomas/.oh-my-zsh"
+export ZSH="/Users/ovf7354/.oh-my-zsh"
 
-# JEnv and sbin to path..
-export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$HOME/.jenv/bin:/usr/local/sbin:$PATH"
-eval "$(jenv init -)"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME="robbyrussell"
-ZSH_THEME="agnoster"
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="robbyrussell"
+# ZSH_THEME="agnoster"
 
 # Returns whether the given command is executable or aliased.
 _has() {
@@ -21,7 +18,7 @@ _has() {
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
@@ -30,13 +27,19 @@ _has() {
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -45,9 +48,11 @@ _has() {
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
+# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -67,16 +72,19 @@ _has() {
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 plugins=(
   git
   zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -94,17 +102,18 @@ export LANG=en_US.UTF-8
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias zshconfig="vim ~/.zshrc"
-alias vimconfig="vim ~/.vim/vimrc"
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias zshconfig="nvim ~/.zshrc"
+alias vimconfig="nvim ~/.vim/vimrc"
+alias nvimconfig="nvim ~/.config/nvim/init.vim"
+
 ## Some tmux-related shell aliases
 
 # Attaches tmux to the last session; creates a new session if none exists.
@@ -117,7 +126,7 @@ alias ta='tmux attach -t'
 alias tn='tmux new-session -s'
 
 # Lists all ongoing sessions
-alias tl='tmux list-sessions' alias ohmyzsh="mate ~/.oh-my-zsh"
+alias tl='tmux list-sessions'
 
 # Git aliases
 alias gt='git status'
@@ -127,6 +136,9 @@ alias gc='git commit'
 # Tree ignore alias
 alias tree='tree -I node_modules'
 
+# Always use python3
+alias python='python3'
+
 # 10ms for key sequences
 KEYTIMEOUT=1
 
@@ -135,14 +147,6 @@ if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
   source /usr/local/opt/fzf/shell/key-bindings.zsh
   source /usr/local/opt/fzf/shell/completion.zsh
 fi
-
-# fzf via local installation
-# if [ -e ~/.fzf ]; then
-#   _append_to_path ~/.fzf/bin
-#   source ~/.fzf/shell/key-bindings.zsh
-#   source ~/.fzf/shell/completion.zsh
-# fi
-
 # fzf + ag configuration
 if _has fzf && _has ag; then
   export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
@@ -158,57 +162,38 @@ fi
 # color correction (for nvim's :CheckHealth command not to whine about it)
 export TERM=xterm-256color
 
-# vi-mode on
-# bindkey -v
-
-# bindkey '^P' up-history
-# bindkey '^N' down-history
-# bindkey '^?' backward-delete-char
-# bindkey '^h' backward-delete-char
-# bindkey '^w' backward-kill-word
-# # bindkey '^r' FZF_DEFAULT_COMMAND
-# # history-incremental-search-backward
-
-# function zle-line-init zle-keymap-select {
-#     VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
-#     # RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$(git_custom_status) $EPS1"
-#     zle reset-prompt
-# }
-
-# zle -N zle-line-init
-# zle -N zle-keymap-select
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/tuomas/namia/spy/packages/pipe-superdesk/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/tuomas/namia/spy/packages/pipe-superdesk/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/tuomas/namia/spy/packages/pipe-superdesk/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/tuomas/namia/spy/packages/pipe-superdesk/node_modules/tabtab/.completions/sls.zsh
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[[ -f /Users/tuomas/namia/spy/packages/pipe-superdesk/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/tuomas/namia/spy/packages/pipe-superdesk/node_modules/tabtab/.completions/slss.zsh
-
-# VI MODE AWW YISS
-# bindkey -v
-#
-# For compilers to find zlib you may need to set:
-export LDFLAGS="${LDFLAGS} -L/usr/local/opt/zlib/lib"
-export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/zlib/include"
-
-# For pkg-config to find zlib you may need to set:
-export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/ovf7354/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/ovf7354/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/ovf7354/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/ovf7354/miniconda3/bin:$PATH"
+    fi
 fi
+unset __conda_setup
+# <<< conda initialize <<<
 
-source /Users/tuomas/Library/Preferences/org.dystroy.broot/launcher/bash/br
+# Oracle SQL stuff
+export PATH=~/Downloads/instantclient_19_8:$PATH
+eval "$(pyenv init -)"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/tuomas/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/tuomas/google-cloud-sdk/path.zsh.inc'; fi
+# Flutter
+export PATH=$PATH:~/Projects/personal/flutter/bin
 
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/tuomas/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/tuomas/google-cloud-sdk/completion.zsh.inc'; fi
+# Android SDK
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
+# Added by Amplify CLI binary installer
+export PATH="$HOME/.amplify/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
